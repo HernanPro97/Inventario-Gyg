@@ -1,0 +1,685 @@
+/* --- VARIABLES Y TEMA GENERAL --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --bs-primary: #20c997;
+    --bs-primary-rgb: 32, 201, 151;
+    --bs-secondary: #6c757d;
+    --bs-secondary-rgb: 108, 117, 125;
+    --bs-success: #198754;
+    --bs-success-rgb: 25, 135, 84;
+    --bs-info: #0dcaf0;
+    --bs-info-rgb: 13, 202, 240;
+    --bs-warning: #ffc107;
+    --bs-warning-rgb: 255, 193, 7;
+    --bs-danger: #dc3545;
+    --bs-danger-rgb: 220, 53, 69;
+    --bs-light: #f8f9fa;
+    --bs-light-rgb: 248, 249, 250;
+    --bs-dark: #212529;
+    --bs-dark-rgb: 33, 37, 41;
+    --bs-body-font-family: 'Roboto', sans-serif;
+    --bs-body-color: var(--bs-dark);
+    --bs-body-bg: #f0f9f8;
+    --bs-border-color: #dee2e6;
+    --bs-border-radius: 0.375rem;
+    --bs-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+    --bs-form-control-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    --gradient-start: #e6fcf5;
+    --gradient-end: #f0f9f8;
+    --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --white-color: #ffffff;
+}
+
+/* --- TEMA OSCURO --- */
+[data-bs-theme="dark"] {
+    --bs-primary: #20c997;
+    --bs-primary-rgb: 32, 201, 151;
+    --bs-secondary: #adb5bd;
+    --bs-secondary-rgb: 173, 181, 189;
+    --bs-success: #198754;
+    --bs-info: #0dcaf0;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #343a40;
+    --bs-light-rgb: 52, 58, 64;
+    --bs-dark: #f8f9fa;
+    --bs-dark-rgb: 248, 249, 250;
+    --bs-body-color: #dee2e6;
+    --bs-body-bg: #1a252f;
+    --bs-border-color: #495057;
+    --bs-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+    --bs-form-control-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.4);
+    --bs-tertiary-bg: #2c3a47;
+    --bs-tertiary-bg-rgb: 44, 58, 71;
+    --gradient-start: #11181f;
+    --gradient-end: #1a252f;
+}
+
+[data-bs-theme="dark"] .table {
+    --bs-table-bg: var(--bs-tertiary-bg);
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-color: var(--bs-body-color);
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.03);
+    --bs-table-striped-color: var(--bs-body-color);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.06);
+    --bs-table-hover-color: var(--bs-body-color);
+    --bs-table-active-bg: rgba(255, 255, 255, 0.08);
+    --bs-table-active-color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select,
+[data-bs-theme="dark"] input[type="text"],
+[data-bs-theme="dark"] input[type="number"],
+[data-bs-theme="dark"] input[type="date"],
+[data-bs-theme="dark"] input[type="email"],
+[data-bs-theme="dark"] textarea {
+    background-color: #2b3035;
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .form-control::placeholder,
+[data-bs-theme="dark"] input::placeholder,
+[data-bs-theme="dark"] textarea::placeholder {
+    color: #868e96;
+    opacity: 1;
+}
+
+[data-bs-theme="dark"] .form-control:focus,
+[data-bs-theme="dark"] .form-select:focus,
+[data-bs-theme="dark"] input:focus,
+[data-bs-theme="dark"] select:focus,
+[data-bs-theme="dark"] textarea:focus {
+    border-color: var(--bs-primary);
+    box-shadow: var(--bs-form-control-focus-box-shadow);
+}
+
+[data-bs-theme="dark"] .form-control:disabled,
+[data-bs-theme="dark"] .form-control:read-only,
+[data-bs-theme="dark"] input:read-only,
+[data-bs-theme="dark"] textarea:read-only {
+    background-color: #3a4045;
+    opacity: 0.7;
+}
+
+[data-bs-theme="dark"] .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+[data-bs-theme="dark"] datalist option {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .btn-light {
+    --bs-btn-color: #f8f9fa;
+    --bs-btn-bg: var(--bs-light);
+    --bs-btn-border-color: var(--bs-light);
+    --bs-btn-hover-color: #f8f9fa;
+    --bs-btn-hover-bg: #495057;
+    --bs-btn-hover-border-color: #495057;
+    --bs-btn-active-color: #f8f9fa;
+    --bs-btn-active-bg: #5a6268;
+    --bs-btn-active-border-color: #5a6268;
+}
+
+[data-bs-theme="dark"] .container {
+    background-color: var(--bs-tertiary-bg);
+    box-shadow: var(--bs-box-shadow);
+}
+
+[data-bs-theme="dark"] .nav-tabs {
+    border-bottom-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .nav-tabs .nav-link {
+    color: var(--bs-secondary);
+    border-color: transparent transparent var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .nav-tabs .nav-link:hover,
+[data-bs-theme="dark"] .nav-tabs .nav-link:focus {
+    border-color: transparent transparent var(--bs-primary);
+    isolation: isolate;
+    color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .nav-tabs .nav-link.active {
+    color: var(--bs-primary);
+    background-color: var(--bs-tertiary-bg);
+    border-color: var(--bs-border-color) var(--bs-border-color) var(--bs-tertiary-bg);
+}
+
+[data-bs-theme="dark"] .alert-light {
+    color: var(--bs-dark);
+    background-color: var(--bs-light);
+    border-color: var(--bs-light);
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: #212529;
+    border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .card .display-5,
+[data-bs-theme="dark"] .card .h3 {
+    color: var(--bs-light);
+}
+
+[data-bs-theme="dark"] .card .text-muted {
+    color: var(--bs-secondary) !important;
+}
+
+[data-bs-theme="dark"] .pagination .page-link {
+    background-color: #2b3035;
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .pagination .page-item.disabled .page-link {
+    background-color: #3a4045;
+    border-color: var(--bs-border-color);
+    color: #6c757d;
+}
+
+[data-bs-theme="dark"] .pagination .page-item.active .page-link {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--white-color);
+}
+
+[data-bs-theme="dark"] .pagination .page-link:hover {
+    background-color: #3a4045;
+}
+
+[data-bs-theme="dark"] .factura-anulada td {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+[data-bs-theme="dark"] .factura-anulada .badge {
+    background-color: var(--bs-secondary) !important;
+    color: var(--bs-light) !important;
+}
+
+[data-bs-theme="dark"] .factura-anulada .badge {
+    background-color: #495057 !important;
+    color: #adb5bd !important;
+}
+
+/* --- ESTILOS GLOBALES --- */
+body {
+    font-family: var(--bs-body-font-family);
+    line-height: 1.6;
+    background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+}
+
+.container {
+    max-width: 1350px;
+    margin: 1rem auto;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-box-shadow);
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .container {
+    background-color: var(--bs-tertiary-bg);
+}
+
+header {
+    background-color: var(--bs-primary);
+    color: var(--white-color);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+/* --- PESTAÑAS Y SECCIONES --- */
+.tabs-container {
+    background-color: var(--bs-light);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .tabs-container {
+    background-color: #212529;
+}
+
+.nav-tabs {
+    border-bottom: none;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bs-secondary) transparent;
+}
+
+.nav-tabs::-webkit-scrollbar {
+    height: 5px;
+}
+
+.nav-tabs::-webkit-scrollbar-thumb {
+    background-color: var(--bs-secondary);
+    border-radius: 3px;
+}
+
+.nav-tabs .nav-item {
+    flex-shrink: 0;
+}
+
+.nav-tabs .nav-link {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    margin-bottom: -1px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.tab-content > .seccion {
+    padding: 2rem;
+    display: none;
+}
+
+.tab-content > .seccion.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.seccion h2 {
+    color: var(--bs-primary);
+    border-bottom: 1px solid var(--bs-border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* --- FORMULARIOS Y BOTONES --- */
+label.form-label {
+    font-weight: 500;
+    color: #495057;
+    font-size: 0.95rem;
+}
+
+[data-bs-theme="dark"] label.form-label {
+    color: #adb5bd;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+#precio-container,
+#proveedor-container,
+#cliente-container {
+    display: none;
+}
+
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-sm i,
+.btn i {
+    margin-right: 0.3rem;
+}
+
+.btn-danger {
+    --bs-btn-hover-bg: #a71d2a;
+    --bs-btn-hover-border-color: #a71d2a;
+}
+
+/* --- TABLAS --- */
+.table {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.table th {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.table th.num,
+.table td.num {
+    text-align: right;
+}
+
+.table td {
+    word-break: break-word;
+}
+
+#tabla-factura-items input[type="number"],
+#tabla-factura-items input[type="text"] {
+    width: auto;
+    min-width: 80px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+#tabla-factura-items .subtotal {
+    font-weight: bold;
+}
+
+/* --- ELEMENTOS ESPECÍFICOS --- */
+#factura-total-display {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--bs-dark);
+}
+
+[data-bs-theme="dark"] #factura-total-display {
+    border-top-color: var(--bs-light);
+}
+
+.mensaje {
+    display: none;
+}
+
+#mensaje-global {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1056;
+    max-width: 350px;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+[data-bs-theme="dark"] #mensaje-global {
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+}
+
+.stock-negativo {
+    color: var(--bs-danger);
+    font-weight: bold;
+}
+
+.stock-cero {
+    color: var(--bs-danger);
+}
+
+#tabla-historial-facturas .btn-sm {
+    margin-right: 5px;
+}
+
+.link-ver-factura {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+header #theme-toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    padding: 0;
+    border-width: 1px;
+    color: var(--white-color) !important;
+    border-color: var(--white-color) !important;
+    background-color: transparent !important;
+}
+header #theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+
+.text-danger {
+    color: var(--bs-danger) !important;
+}
+
+/* --- TARJETAS DE RESUMEN --- */
+.card-resumen {
+    border: none;
+    border-left: 5px solid var(--bs-primary);
+    box-shadow: var(--bs-box-shadow);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    height: 100%;
+}
+
+.card-resumen:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.8rem 1.2rem rgba(0, 0, 0, 0.12);
+}
+
+[data-bs-theme="dark"] .card-resumen:hover {
+    box-shadow: 0 0.8rem 1.2rem rgba(0, 0, 0, 0.35);
+}
+
+.card-resumen .card-body {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.card-resumen .icono-card {
+    font-size: 2.8rem;
+    margin-right: 1.5rem;
+    opacity: 0.7;
+    min-width: 50px;
+    text-align: center;
+}
+
+.card-resumen .texto-card .stat-valor {
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+}
+
+.card-resumen .texto-card .stat-label {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+
+.card-resumen.border-primary .icono-card {
+    color: var(--bs-primary);
+}
+
+.card-resumen.border-warning {
+    border-left-color: var(--bs-warning);
+}
+
+.card-resumen.border-warning .icono-card {
+    color: var(--bs-warning);
+}
+
+.card-resumen.border-success {
+    border-left-color: var(--bs-success);
+}
+
+.card-resumen.border-success .icono-card {
+    color: var(--bs-success);
+}
+
+.card-resumen.border-info {
+    border-left-color: var(--bs-info);
+}
+
+.card-resumen.border-info .icono-card {
+    color: var(--bs-info);
+}
+
+.card-resumen .placeholder-glow .placeholder {
+    height: 2rem;
+    margin-bottom: 0.2rem;
+    width: 60%;
+}
+
+.card-resumen .placeholder-glow .placeholder.w-40 {
+    width: 40%;
+    height: 1rem;
+}
+
+/* --- CONTROLES DE PAGINACIÓN --- */
+.pagination-controls-container {
+    display: none;
+}
+
+/* --- ESTILOS CXC Y ESTADOS DE FACTURA --- */
+.deuda-pendiente {
+    color: var(--bs-warning);
+    font-weight: bold;
+}
+
+.sin-deuda {
+    color: var(--bs-success);
+}
+
+[data-bs-theme="dark"] .deuda-pendiente {
+    color: #ffda6a;
+}
+
+[data-bs-theme="dark"] .sin-deuda {
+    color: #48c78e;
+}
+
+.factura-anulada td {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.factura-anulada .badge {
+    background-color: var(--bs-secondary) !important;
+    color: var(--bs-light) !important;
+}
+
+[data-bs-theme="dark"] .factura-anulada .badge {
+    background-color: #495057 !important;
+    color: #adb5bd !important;
+}
+
+/* --- ESTILOS DE IMPRESIÓN CORREGIDOS --- */
+@media print {
+    /* Ocultar todos los elementos que son hijos directos del body */
+    body > *:not(#printable-factura) {
+        display: none !important;
+    }
+
+    /* Asegurarse de que el área imprimible sea visible y ocupe todo el espacio */
+    #printable-factura {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important; /* Usar static para evitar problemas de layout */
+    }
+
+    /* Resetear estilos del body y html para no interferir */
+    html, body {
+        height: auto;
+        overflow: visible;
+        background: #fff !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    #printable-factura {
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        font-size: 11pt;
+        color: #000;
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+    }
+
+    #printable-factura h2,
+    #printable-factura h3 {
+        color: #000;
+        border: none;
+        margin-bottom: 10px;
+        font-size: 14pt;
+        font-weight: bold;
+    }
+
+    #printable-factura p {
+        font-size: 11pt;
+        margin-bottom: 5px;
+    }
+
+    #printable-factura table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 10pt;
+    }
+
+    #printable-factura th,
+    #printable-factura td {
+        border: 1px solid #999;
+        padding: 6px;
+        text-align: left;
+    }
+
+    #printable-factura th {
+        background-color: #eee;
+        font-weight: bold;
+    }
+
+    #printable-factura .num {
+        text-align: right;
+    }
+
+    #printable-factura #print-total {
+        text-align: right;
+        font-weight: bold;
+        font-size: 12pt;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 2px solid #000;
+    }
+
+    #printable-factura .no-print {
+        display: none;
+    }
+
+    #printable-factura.anulada-print-version {
+        position: relative;
+    }
+
+    #printable-factura.anulada-print-version::after {
+        content: "ANULADA";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-30deg);
+        font-size: 100pt;
+        color: rgba(255, 0, 0, 0.2);
+        font-weight: bold;
+        z-index: 1000;
+        pointer-events: none;
+    }
+}

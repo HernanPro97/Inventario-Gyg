@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario v5.7 - Delicateses Deyexpress LDH</title>
+
+    <!-- Librerías Externas -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Hoja de Estilos Propia -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Formulario de Login -->
+    <div id="login-container" class="container" style="max-width: 400px; margin-top: 50px;">
+        <div class="card">
+            <div class="card-header"><h4>Inicio de Sesión</h4></div>
+            <div class="card-body">
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario:</label>
+                        <input type="text" class="form-control" id="username" required autocomplete="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña:</label>
+                        <input type="password" class="form-control" id="password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                    <div id="login-message" class="mt-3" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de la Aplicación -->
+    <div id="app-container" style="display: none;">
+        <div class="container">
+            <header>
+                <h1>Gestión de Inventario</h1>
+                <button id="theme-toggle-btn" class="btn btn-outline-light btn-sm" title="Cambiar Tema">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
+                <button id="logout-btn" class="btn btn-sm btn-danger" style="position: absolute; top: 15px; left: 20px;" title="Cerrar Sesión">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </header>
+            
+            <div class="tabs-container">
+                 <ul class="nav nav-tabs" id="myTab" role="tablist">
+                     <li class="nav-item" role="presentation"><button class="nav-link active" id="tab-resumen" data-bs-toggle="tab" data-bs-target="#seccion-resumen" type="button" role="tab" aria-controls="seccion-resumen" aria-selected="true"><i class="fas fa-tachometer-alt"></i> Resumen</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-carga" data-bs-toggle="tab" data-bs-target="#seccion-carga" type="button" role="tab" aria-controls="seccion-carga" aria-selected="false"><i class="fas fa-box-open"></i> Producto</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-clientes" data-bs-toggle="tab" data-bs-target="#seccion-clientes" type="button" role="tab" aria-controls="seccion-clientes" aria-selected="false"><i class="fas fa-users"></i> Clientes</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-proveedores" data-bs-toggle="tab" data-bs-target="#seccion-proveedores" type="button" role="tab" aria-controls="seccion-proveedores" aria-selected="false"><i class="fas fa-truck-loading"></i> Proveedores</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-ajustes" data-bs-toggle="tab" data-bs-target="#seccion-ajustes" type="button" role="tab" aria-controls="seccion-ajustes" aria-selected="false"><i class="fas fa-sliders-h"></i> Ajustes</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-detalle-inventario" data-bs-toggle="tab" data-bs-target="#seccion-detalle-inventario" type="button" role="tab" aria-controls="seccion-detalle-inventario" aria-selected="false"><i class="fas fa-boxes"></i> Inventario</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-historial" data-bs-toggle="tab" data-bs-target="#seccion-historial" type="button" role="tab" aria-controls="seccion-historial" aria-selected="false"><i class="fas fa-history"></i> Hist. Mov.</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-factura" data-bs-toggle="tab" data-bs-target="#seccion-factura" type="button" role="tab" aria-controls="seccion-factura" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i> Factura</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-factura-compra" data-bs-toggle="tab" data-bs-target="#seccion-factura-compra" type="button" role="tab" aria-controls="seccion-factura-compra" aria-selected="false"><i class="fas fa-shopping-cart"></i> Fact. Compra</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-cxc" data-bs-toggle="tab" data-bs-target="#seccion-cxc" type="button" role="tab" aria-controls="seccion-cxc" aria-selected="false"><i class="fas fa-hand-holding-usd"></i> CxC</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-historial-facturas" data-bs-toggle="tab" data-bs-target="#seccion-historial-facturas" type="button" role="tab" aria-controls="seccion-historial-facturas" aria-selected="false"><i class="fas fa-folder-open"></i> Hist. Fact.</button></li>
+                     <li class="nav-item" role="presentation"><button class="nav-link" id="tab-datos" data-bs-toggle="tab" data-bs-target="#seccion-datos" type="button" role="tab" aria-controls="seccion-datos" aria-selected="false"><i class="fas fa-database"></i> Datos</button></li>
+                 </ul>
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <!-- SECCIÓN RESUMEN -->
+                <div class="tab-pane fade show active seccion" id="seccion-resumen" role="tabpanel" aria-labelledby="tab-resumen">
+                    <h2><i class="fas fa-chart-line me-2"></i>Resumen General</h2>
+                    <div class="row g-4" id="resumen-cards-container">
+                        <div class="col-md-6 col-lg-3"><div class="card card-resumen border-primary h-100"><div class="card-body"><div class="icono-card"><i class="fas fa-boxes-stacked"></i></div><div class="texto-card ms-3"><span class="stat-valor" id="stat-total-productos">--</span><p class="stat-label text-muted mb-0">Productos Únicos</p></div></div></div></div>
+                        <div class="col-md-6 col-lg-3"><div class="card card-resumen border-warning h-100"><div class="card-body"><div class="icono-card"><i class="fas fa-exclamation-triangle"></i></div><div class="texto-card ms-3"><span class="stat-valor" id="stat-bajo-stock">--</span><p class="stat-label text-muted mb-0">Productos Bajo Stock (<=0)</p></div></div></div></div>
+                        <div class="col-md-6 col-lg-3"><div class="card card-resumen border-success h-100"><div class="card-body"><div class="icono-card"><i class="fas fa-dollar-sign"></i></div><div class="texto-card ms-3"><span class="stat-valor" id="stat-valor-total">--</span><p class="stat-label text-muted mb-0">Valor Total Estimado</p></div></div></div></div>
+                        <div class="col-md-6 col-lg-3"><div class="card card-resumen border-info h-100"><div class="card-body"><div class="icono-card"><i class="fas fa-file-alt"></i></div><div class="texto-card ms-3"><span class="stat-valor" id="stat-total-facturas">--</span><p class="stat-label text-muted mb-0">Facturas Registradas</p></div></div></div></div>
+                    </div>
+                    <div id="resumen-loading-placeholder" class="row g-4" style="display: none;">
+                        <div class="col-md-6 col-lg-3" aria-hidden="true"><div class="card card-resumen border-primary h-100 placeholder-glow"><div class="card-body align-items-start"><div class="texto-card ms-0"><span class="placeholder col-6"></span><p class="placeholder w-40"></p></div></div></div></div>
+                        <div class="col-md-6 col-lg-3" aria-hidden="true"><div class="card card-resumen border-warning h-100 placeholder-glow"><div class="card-body align-items-start"><div class="texto-card ms-0"><span class="placeholder col-4"></span><p class="placeholder w-40"></p></div></div></div></div>
+                        <div class="col-md-6 col-lg-3" aria-hidden="true"><div class="card card-resumen border-success h-100 placeholder-glow"><div class="card-body align-items-start"><div class="texto-card ms-0"><span class="placeholder col-7"></span><p class="placeholder w-40"></p></div></div></div></div>
+                        <div class="col-md-6 col-lg-3" aria-hidden="true"><div class="card card-resumen border-info h-100 placeholder-glow"><div class="card-body align-items-start"><div class="texto-card ms-0"><span class="placeholder col-5"></span><p class="placeholder w-40"></p></div></div></div></div>
+                    </div>
+                    <div id="resumen-error-placeholder" class="alert alert-danger mt-4" style="display: none;">Error al cargar resumen.</div>
+                </div>
+                
+                <!-- SECCIÓN CARGA PRODUCTO -->
+                <div class="tab-pane fade seccion" id="seccion-carga" role="tabpanel" aria-labelledby="tab-carga">
+                    <h2><i class="fas fa-plus-circle me-2"></i>Cargar Nuevo Producto</h2>
+                    <form id="form-nuevo-producto">
+                        <div class="mb-3"><label for="producto-departamento" class="form-label">Departamento:</label><input type="text" class="form-control" id="producto-departamento" required></div>
+                        <div class="mb-3"><label for="producto-descripcion" class="form-label">Descripción:</label><input type="text" class="form-control" id="producto-descripcion" required></div>
+                        <div class="mb-3"><label for="producto-medida" class="form-label">U. Medida:</label><select class="form-select" id="producto-medida" required><option value="">Seleccione...</option><option value="Kg">Kg</option><option value="Unid">Unid</option><option value="L">L</option><option value="m">m</option><option value="Paq">Paq</option></select></div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Producto</button>
+                    </form>
+                    <div id="mensaje-producto" class="mt-3"></div>
+                </div>
+
+                <!-- SECCIÓN CLIENTES -->
+                <div class="tab-pane fade seccion" id="seccion-clientes" role="tabpanel" aria-labelledby="tab-clientes">
+                    <h2><i class="fas fa-user-tie me-2"></i>Gestión de Clientes</h2>
+                    <div class="card mb-4">
+                        <div class="card-header"><h5 id="cliente-form-title">Agregar Nuevo Cliente</h5></div>
+                        <div class="card-body">
+                            <form id="form-cliente">
+                                <input type="hidden" id="cliente-id-edit" value="">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3"><label for="cliente-nombre" class="form-label">Nombre o Razón Social: <span class="text-danger">*</span></label><input type="text" class="form-control" id="cliente-nombre" required></div>
+                                    <div class="col-md-6 mb-3"><label for="cliente-codigo-alfanumerico" class="form-label">Código Alfanumérico (Opcional):</label><input type="text" class="form-control" id="cliente-codigo-alfanumerico" placeholder="Ej: CLI-ABC"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3"><label for="cliente-identificacion" class="form-label">Identificación Fiscal:</label><input type="text" class="form-control" id="cliente-identificacion"></div>
+                                    <div class="col-md-6 mb-3"><label for="cliente-telefono" class="form-label">Teléfono:</label><input type="text" class="form-control" id="cliente-telefono"></div>
+                                </div>
+                                <div class="mb-3"><label for="cliente-direccion" class="form-label">Dirección:</label><textarea class="form-control" id="cliente-direccion" rows="2"></textarea></div>
+                                <div class="mb-3"><label for="cliente-email" class="form-label">Email:</label><input type="email" class="form-control" id="cliente-email"></div>
+                                <div class="mb-3 form-check"><input type="checkbox" class="form-check-input" id="cliente-activo" checked><label class="form-check-label" for="cliente-activo">Cliente Activo</label></div>
+                                <button type="submit" class="btn btn-primary me-2"><i class="fas fa-save"></i> Guardar Cliente</button>
+                                <button type="button" class="btn btn-secondary" id="btn-cancelar-cliente-edicion" style="display:none;"><i class="fas fa-times"></i> Cancelar Edición</button>
+                            </form>
+                            <div id="mensaje-cliente" class="mt-3"></div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tabla-clientes" class="table table-striped table-hover table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID Cliente</th><th>Nombre/Razón Social</th><th>Cód. Alfa.</th><th>Identificación</th><th>Teléfono</th><th class="num">Deuda Total ($)</th><th>Estado</th><th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpo-tabla-clientes"><tr><td colspan="9" class="text-center p-3"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN PROVEEDORES -->
+                <div class="tab-pane fade seccion" id="seccion-proveedores" role="tabpanel" aria-labelledby="tab-proveedores">
+                    <h2><i class="fas fa-truck-loading me-2"></i>Gestión de Proveedores</h2>
+                    <div class="card mb-4">
+                        <div class="card-header"><h5 id="proveedor-form-title">Agregar Nuevo Proveedor</h5></div>
+                        <div class="card-body">
+                            <form id="form-proveedor">
+                                <input type="hidden" id="proveedor-id-edit" value="">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3"><label for="proveedor-nombre" class="form-label">Nombre o Razón Social: <span class="text-danger">*</span></label><input type="text" class="form-control" id="proveedor-nombre" required></div>
+                                    <div class="col-md-6 mb-3"><label for="proveedor-codigo-alfanumerico" class="form-label">Código Alfanumérico (Opcional):</label><input type="text" class="form-control" id="proveedor-codigo-alfanumerico" placeholder="Ej: PROV-XYZ"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3"><label for="proveedor-identificacion" class="form-label">Identificación Fiscal:</label><input type="text" class="form-control" id="proveedor-identificacion"></div>
+                                    <div class="col-md-6 mb-3"><label for="proveedor-telefono" class="form-label">Teléfono:</label><input type="text" class="form-control" id="proveedor-telefono"></div>
+                                </div>
+                                <div class="mb-3"><label for="proveedor-direccion" class="form-label">Dirección:</label><textarea class="form-control" id="proveedor-direccion" rows="2"></textarea></div>
+                                <div class="mb-3"><label for="proveedor-email" class="form-label">Email:</label><input type="email" class="form-control" id="proveedor-email"></div>
+                                <div class="mb-3 form-check"><input type="checkbox" class="form-check-input" id="proveedor-activo" checked><label class="form-check-label" for="proveedor-activo">Proveedor Activo</label></div>
+                                <button type="submit" class="btn btn-primary me-2"><i class="fas fa-save"></i> Guardar Proveedor</button>
+                                <button type="button" class="btn btn-secondary" id="btn-cancelar-proveedor-edicion" style="display:none;"><i class="fas fa-times"></i> Cancelar Edición</button>
+                            </form>
+                            <div id="mensaje-proveedor" class="mt-3"></div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tabla-proveedores" class="table table-striped table-hover table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID Proveedor</th><th>Nombre/Razón Social</th><th>Cód. Alfa.</th><th>Identificación</th><th>Teléfono</th><th>Estado</th><th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpo-tabla-proveedores"><tr><td colspan="7" class="text-center p-3"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN AJUSTES -->
+                <div class="tab-pane fade seccion" id="seccion-ajustes" role="tabpanel" aria-labelledby="tab-ajustes">
+                    <h2><i class="fas fa-sliders-h me-2"></i>Registrar Ajuste Manual de Inventario</h2>
+                    <form id="form-movimiento">
+                        <div class="mb-3"><label for="movimiento-producto-input" class="form-label">Producto:</label><input type="text" class="form-control" id="movimiento-producto-input" list="productos-lista" placeholder="[Cod] Buscar producto..." required autocomplete="off"><datalist id="productos-lista"></datalist><input type="hidden" id="movimiento-producto-id"></div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label for="movimiento-tipo" class="form-label">Tipo:</label><select class="form-select" id="movimiento-tipo" required><option value="entrada" selected>Entrada</option><option value="salida">Salida</option></select></div>
+                            <div class="col-md-6 mb-3"><label for="movimiento-cantidad" class="form-label">Cantidad:</label><input type="number" class="form-control" id="movimiento-cantidad" required min="0.01" step="any"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3" id="precio-container"><label for="movimiento-precio" class="form-label">Precio Unit. ($):</label><input type="number" class="form-control" id="movimiento-precio" min="0" step="0.01"></div>
+                            <div class="col-md-6 mb-3" id="proveedor-container"><label for="movimiento-proveedor" class="form-label">Proveedor:</label><input type="text" class="form-control" id="movimiento-proveedor" placeholder="(Opcional)"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3" id="cliente-container"><label for="movimiento-cliente" class="form-label">Cliente:</label><input type="text" class="form-control" id="movimiento-cliente" placeholder="(Opcional)"></div>
+                            <div class="col-md-6 mb-3"><label for="movimiento-fecha" class="form-label">Fecha:</label><input type="date" class="form-control" id="movimiento-fecha" required></div>
+                        </div>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Registrar Movimiento</button>
+                    </form>
+                    <div id="mensaje-movimiento" class="mt-3"></div>
+                </div>
+                
+                <!-- SECCIÓN DETALLE INVENTARIO -->
+                <div class="tab-pane fade seccion" id="seccion-detalle-inventario" role="tabpanel" aria-labelledby="tab-detalle-inventario">
+                    <h2><i class="fas fa-clipboard-list me-2"></i>Detalle del Inventario</h2>
+                    <div class="row mb-3 g-2 align-items-end">
+                        <div class="col-md-3"><label for="filtro-inventario-texto" class="form-label form-label-sm mb-1">Producto:</label><input type="text" id="filtro-inventario-texto" class="form-control form-control-sm" placeholder="Código, Depto, Desc..."></div>
+                        <div class="col-md-2"><label for="filtro-inventario-stock" class="form-label form-label-sm mb-1">Stock:</label><select id="filtro-inventario-stock" class="form-select form-select-sm"><option value="">Todos</option><option value="positivo">Con Stock (>0)</option><option value="cero">Sin Stock (0)</option><option value="negativo">Stock Negativo (<0)</option></select></div>
+                        <div class="col-md-2"><label for="filtro-inventario-es-fecha-inicio" class="form-label form-label-sm mb-1">E/S Desde:</label><input type="date" id="filtro-inventario-es-fecha-inicio" class="form-control form-control-sm"></div>
+                        <div class="col-md-2"><label for="filtro-inventario-es-fecha-fin" class="form-label form-label-sm mb-1">E/S Hasta:</label><input type="date" id="filtro-inventario-es-fecha-fin" class="form-control form-control-sm"></div>
+                        <div class="col-md-3 text-end"><button id="limpiar-filtro-inventario" class="btn btn-secondary btn-sm" title="Limpiar Filtros"><i class="fas fa-times"></i> Limpiar</button></div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tabla-inventario" class="table table-striped table-hover table-sm">
+                            <thead class="table-light"><tr><th>Código</th><th>Departamento</th><th>Descripción</th><th>U. Medida</th><th class="num">Stock Actual</th> <th class="num">Últ. Precio ($)</th><th class="num">Entradas (Periodo)</th> <th class="num">Salidas (Periodo)</th><th>Acción</th></tr></thead>
+                            <tbody id="cuerpo-tabla-inventario"><tr><td colspan="9" class="text-center p-3"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr></tbody>
+                        </table>
+                    </div>
+                    <div id="inventario-pagination-controls" class="pagination-controls-container d-flex justify-content-between align-items-center mt-3">
+                        <div><label for="inventario-limit-select" class="form-label form-label-sm me-1">Mostrar:</label><select id="inventario-limit-select" class="form-select form-select-sm d-inline-block" style="width: auto;"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select><span id="inventario-pagination-info" class="ms-2 text-muted small"></span></div>
+                        <nav aria-label="Paginación inventario"><ul class="pagination pagination-sm mb-0"><li class="page-item"><button class="page-link" id="inventario-btn-primera" title="Primera Página"><i class="fas fa-angle-double-left"></i></button></li><li class="page-item"><button class="page-link" id="inventario-btn-anterior" title="Página Anterior"><i class="fas fa-angle-left"></i></button></li><li class="page-item disabled"><span class="page-link" id="inventario-page-display">Pág. 1 de 1</span></li><li class="page-item"><button class="page-link" id="inventario-btn-siguiente" title="Página Siguiente"><i class="fas fa-angle-right"></i></button></li><li class="page-item"><button class="page-link" id="inventario-btn-ultima" title="Última Página"><i class="fas fa-angle-double-right"></i></button></li></ul></nav>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN HISTORIAL MOVIMIENTOS -->
+                <div class="tab-pane fade seccion" id="seccion-historial" role="tabpanel" aria-labelledby="tab-historial">
+                    <h2><i class="fas fa-list-ul me-2"></i>Historial de Movimientos</h2>
+                    <div class="row mb-3 g-2 align-items-end">
+                        <div class="col-md-3"><label for="filtro-historial-texto" class="form-label form-label-sm mb-1">Producto:</label><input type="text" id="filtro-historial-texto" class="form-control form-control-sm" placeholder="Código o Descripción..."></div>
+                        <div class="col-md-2"><label for="filtro-historial-tipo" class="form-label form-label-sm mb-1">Tipo:</label><select id="filtro-historial-tipo" class="form-select form-select-sm"><option value="">Todos</option><option value="entrada">Entrada</option><option value="salida">Salida</option></select></div>
+                        <div class="col-md-3"><label for="filtro-historial-fecha-inicio" class="form-label form-label-sm mb-1">Desde:</label><input type="date" id="filtro-historial-fecha-inicio" class="form-control form-control-sm"></div>
+                        <div class="col-md-3"><label for="filtro-historial-fecha-fin" class="form-label form-label-sm mb-1">Hasta:</label><input type="date" id="filtro-historial-fecha-fin" class="form-control form-control-sm"></div>
+                        <div class="col-md-1 text-end"><button id="limpiar-filtro-historial" class="btn btn-secondary btn-sm" title="Limpiar Filtros"><i class="fas fa-times"></i></button></div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tabla-historial" class="table table-striped table-hover table-sm"><thead class="table-light"><tr><th>Fecha</th><th>Producto</th><th>Tipo</th><th class="num">Cantidad</th><th class="num">Precio U. ($)</th><th>Prov/Cliente</th><th>Ref. Fact.</th><th>Acción</th></tr></thead><tbody id="cuerpo-tabla-historial"><tr><td colspan="8" class="text-center p-3"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr></tbody></table>
+                    </div>
+                    <div id="historial-movimientos-pagination-controls" class="pagination-controls-container d-flex justify-content-between align-items-center mt-3">
+                        <div><label for="historial-limit-select" class="form-label form-label-sm me-1">Mostrar:</label><select id="historial-limit-select" class="form-select form-select-sm d-inline-block" style="width: auto;"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select><span id="historial-pagination-info" class="ms-2 text-muted small"></span></div>
+                        <nav aria-label="Paginación historial movimientos"><ul class="pagination pagination-sm mb-0"><li class="page-item"><button class="page-link" id="historial-btn-primera" title="Primera Página"><i class="fas fa-angle-double-left"></i></button></li><li class="page-item"><button class="page-link" id="historial-btn-anterior" title="Página Anterior"><i class="fas fa-angle-left"></i></button></li><li class="page-item disabled"><span class="page-link" id="historial-page-display">Pág. 1 de 1</span></li><li class="page-item"><button class="page-link" id="historial-btn-siguiente" title="Página Siguiente"><i class="fas fa-angle-right"></i></button></li><li class="page-item"><button class="page-link" id="historial-btn-ultima" title="Última Página"><i class="fas fa-angle-double-right"></i></button></li></ul></nav>
+                    </div>
+                </div>
+                
+                <!-- SECCIÓN FACTURA -->
+                <div class="tab-pane fade seccion" id="seccion-factura" role="tabpanel" aria-labelledby="tab-factura">
+                    <h2><i class="fas fa-receipt me-2"></i>Crear Nueva Factura</h2>
+                    <form id="form-factura" class="mb-3">
+                        <div class="row mb-3"><div class="col-md-4"><label for="factura-fecha" class="form-label">Fecha: <span class="text-danger">*</span></label><input type="date" class="form-control" id="factura-fecha" required></div><div class="col-md-8"><label for="factura-cliente-input" class="form-label">Cliente: <span class="text-danger">*</span></label><input type="text" class="form-control" id="factura-cliente-input" list="factura-clientes-lista" placeholder="[ID] o Nombre del cliente..." required autocomplete="off"><datalist id="factura-clientes-lista"></datalist><input type="hidden" id="factura-cliente-id-hidden"></div></div>
+                        <div class="row mb-3"><div class="col-md-6"><label for="factura-condicion-pago" class="form-label">Condición de Pago: <span class="text-danger">*</span></label><select class="form-select" id="factura-condicion-pago" required><option value="contado" selected>Contado</option><option value="credito">Crédito</option></select></div><div class="col-md-6" id="factura-fecha-vencimiento-container" style="display:none;"><label for="factura-fecha-vencimiento" class="form-label">Fecha de Vencimiento: <span class="text-danger">*</span></label><input type="date" class="form-control" id="factura-fecha-vencimiento"></div></div>
+                    </form>
+                    <h3>Ítems de la Factura</h3>
+                    <div class="table-responsive mb-3"><table id="tabla-factura-items" class="table table-sm align-middle"><thead class="table-light"><tr><th style="width: 40%;">Producto</th><th class="num" style="width: 15%;">Cant.</th><th class="num" style="width: 15%;">Precio Venta ($)</th><th class="num" style="width: 20%;">Subtotal ($)</th><th style="width: 10%; text-align:center;">Quitar</th></tr></thead><tbody id="cuerpo-tabla-factura-items"></tbody></table></div>
+                    <button type="button" id="btn-add-factura-item" class="btn btn-primary btn-sm mb-3"><i class="fas fa-plus"></i> Añadir Ítem</button>
+                    <div id="factura-total-display">Total Factura: $ 0.00</div>
+                    <div class="text-end mt-4"><button type="button" id="btn-guardar-factura" class="btn btn-success btn-lg"><i class="fas fa-save"></i> Guardar Factura</button></div>
+                    <div id="mensaje-factura" class="mt-3"></div>
+                </div>
+
+                <!-- SECCIÓN FACTURA COMPRA -->
+                <div class="tab-pane fade seccion" id="seccion-factura-compra" role="tabpanel" aria-labelledby="tab-factura-compra">
+                    <h2><i class="fas fa-shopping-cart me-2"></i>Registrar Factura de Compra</h2>
+                    <form id="form-factura-compra" class="mb-3">
+                        <div class="row mb-3">
+                            <div class="col-md-4"><label for="factura-compra-fecha" class="form-label">Fecha: <span class="text-danger">*</span></label><input type="date" class="form-control" id="factura-compra-fecha" required></div>
+                            <div class="col-md-8"><label for="factura-compra-proveedor-input" class="form-label">Proveedor: <span class="text-danger">*</span></label><input type="text" class="form-control" id="factura-compra-proveedor-input" list="factura-proveedores-lista" placeholder="Buscar proveedor..." required autocomplete="off"><datalist id="factura-proveedores-lista"></datalist><input type="hidden" id="factura-compra-proveedor-id-hidden"></div>
+                        </div>
+                    </form>
+                    <h3>Ítems de la Factura de Compra</h3>
+                    <div class="table-responsive mb-3">
+                        <table id="tabla-factura-compra-items" class="table table-sm align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 40%;">Producto</th>
+                                    <th class="num" style="width: 15%;">Cant.</th>
+                                    <th class="num" style="width: 15%;">Costo Unit. ($)</th>
+                                    <th class="num" style="width: 20%;">Subtotal ($)</th>
+                                    <th style="width: 10%; text-align:center;">Quitar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpo-tabla-factura-compra-items"></tbody>
+                        </table>
+                    </div>
+                    <button type="button" id="btn-add-factura-compra-item" class="btn btn-primary btn-sm mb-3"><i class="fas fa-plus"></i> Añadir Ítem</button>
+                    <div id="factura-compra-total-display">Total Factura Compra: $ 0.00</div>
+                    <div class="text-end mt-4"><button type="button" id="btn-guardar-factura-compra" class="btn btn-success btn-lg"><i class="fas fa-save"></i> Guardar Factura de Compra</button></div>
+                    <div id="mensaje-factura-compra" class="mt-3"></div>
+                </div>
+                
+                <!-- SECCIÓN CUENTAS POR COBRAR (CXC) -->
+                <div class="tab-pane fade seccion" id="seccion-cxc" role="tabpanel" aria-labelledby="tab-cxc">
+                    <h2><i class="fas fa-hand-holding-usd me-2"></i>Cuentas por Cobrar</h2>
+                    <div class="row mb-3 g-2 align-items-end"><div class="col-md-3"><label for="filtro-cxc-cliente" class="form-label form-label-sm mb-1">Cliente:</label><select id="filtro-cxc-cliente" class="form-select form-select-sm"><option value="">Todos</option></select></div><div class="col-md-2"><label for="filtro-cxc-estado" class="form-label form-label-sm mb-1">Estado Fact.:</label><select id="filtro-cxc-estado" class="form-select form-select-sm"><option value="">Pendiente/Parcial</option><option value="pendiente">Pendiente</option><option value="parcialmente_pagada">Parcial</option><option value="vencida">Vencidas</option></select></div><div class="col-md-3"><label for="filtro-cxc-factura-id" class="form-label form-label-sm mb-1">ID Factura:</label><input type="number" id="filtro-cxc-factura-id" class="form-control form-control-sm" placeholder="Buscar ID Factura"></div><div class="col-md-4 text-end"><button id="btn-aplicar-filtro-cxc" class="btn btn-primary btn-sm me-1"><i class="fas fa-filter"></i> Filtrar</button><button id="limpiar-filtro-cxc" class="btn btn-secondary btn-sm"><i class="fas fa-times"></i></button></div></div>
+                    <div class="table-responsive"><table id="tabla-cxc" class="table table-striped table-hover table-sm"><thead class="table-light"><tr><th>ID Fact.</th><th>Cliente</th><th>Fecha Fact.</th><th>Fecha Venc.</th><th class="num">Total ($)</th><th class="num">Saldo ($)</th><th>Estado</th><th class="num">Días Venc.</th><th>Acciones</th></tr></thead><tbody id="cuerpo-tabla-cxc"><tr><td colspan="9" class="text-center p-3"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr></tbody></table></div>
+                </div>
+                
+                <!-- SECCIÓN HISTORIAL FACTURAS -->
+                <div class="tab-pane fade seccion" id="seccion-historial-facturas" role="tabpanel" aria-labelledby="tab-historial-facturas">
+                    <h2><i class="fas fa-archive me-2"></i>Historial de Facturas</h2>
+                    <div class="row mb-3 g-2 align-items-end">
+                        <div class="col-md-3"><label for="filtro-facturas-texto" class="form-label form-label-sm mb-1">Cliente/ID:</label><input type="text" id="filtro-facturas-texto" class="form-control form-control-sm" placeholder="Nombre o ID..."></div>
+                        <div class="col-md-2"><label for="filtro-facturas-fecha-inicio" class="form-label form-label-sm mb-1">Desde:</label><input type="date" id="filtro-facturas-fecha-inicio" class="form-control form-control-sm"></div>
+                        <div class="col-md-2"><label for="filtro-facturas-fecha-fin" class="form-label form-label-sm mb-1">Hasta:</label><input type="date" id="filtro-facturas-fecha-fin" class="form-control form-control-sm"></div>
+                        <!-- NUEVO FILTRO -->
+                        <div class="col-md-2">
+                            <label for="filtro-facturas-estado-pago" class="form-label form-label-sm mb-1">Estado Pago:</label>
+                            <select id="filtro-facturas-estado-pago" class="form-select form-select-sm">
+                                <option value="">Todos</option>
+                                <option value="pagada">Pagadas</option>
+                                <option value="pendiente">Pendientes/Parcial</option>
+                                <option value="contado">De Contado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-switch mt-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="filtro-facturas-ver-anuladas">
+                                <label class="form-check-label form-label-sm" for="filtro-facturas-ver-anuladas">Incluir Anuladas</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-end mt-2">
+                            <button id="limpiar-filtro-facturas" class="btn btn-secondary btn-sm" title="Limpiar Filtros"><i class="fas fa-times"></i> Limpiar</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tabla-historial-facturas" class="table table-striped table-hover table-sm"><thead class="table-light"><tr><th>ID Fact.</th><th>Fecha</th><th>Cliente</th><th class="num">Total ($)</th><th>Cond. Pago</th><th class="num">Saldo ($)</th><th>Estado Pago</th><th>Acciones</th></tr></thead><tbody id="cuerpo-tabla-historial-facturas"><tr><td colspan="8" class="text-center p-3"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr></tbody></table>
+                    </div>
+                    <div id="historial-facturas-pagination-controls" class="pagination-controls-container d-flex justify-content-between align-items-center mt-3">
+                        <div><label for="histfact-limit-select" class="form-label form-label-sm me-1">Mostrar:</label><select id="histfact-limit-select" class="form-select form-select-sm d-inline-block" style="width: auto;"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select><span id="histfact-pagination-info" class="ms-2 text-muted small"></span></div>
+                        <nav aria-label="Paginación historial facturas"><ul class="pagination pagination-sm mb-0"><li class="page-item"><button class="page-link" id="histfact-btn-primera" title="Primera Página"><i class="fas fa-angle-double-left"></i></button></li><li class="page-item"><button class="page-link" id="histfact-btn-anterior" title="Página Anterior"><i class="fas fa-angle-left"></i></button></li><li class="page-item disabled"><span class="page-link" id="histfact-page-display">Pág. 1 de 1</span></li><li class="page-item"><button class="page-link" id="histfact-btn-siguiente" title="Página Siguiente"><i class="fas fa-angle-right"></i></button></li><li class="page-item"><button class="page-link" id="histfact-btn-ultima" title="Última Página"><i class="fas fa-angle-double-right"></i></button></li></ul></nav>
+                    </div>
+                </div>
+                
+                <!-- SECCIÓN DATOS -->
+                <div class="tab-pane fade seccion" id="seccion-datos" role="tabpanel" aria-labelledby="tab-datos">
+                    <h2><i class="fas fa-cogs me-2"></i>Gestionar Datos</h2>
+                    <div id="import-export-container"><p class="text-muted">Import/Export deshabilitado.</p><button type="button" id="btn-exportar-datos" class="btn btn-info me-2" disabled><i class="fas fa-file-export"></i> Exportar</button><label for="input-importar-datos" class="btn-like-label btn-warning" style="opacity:0.65;cursor:not-allowed;"><i class="fas fa-file-import"></i> Importar...</label><input type="file" id="input-importar-datos" accept=".json" style="display:none;" disabled><div id="mensaje-datos" class="mt-3"><div class="alert alert-info">Import/Export deshabilitado.</div></div></div>
+                </div>
+            </div>
+            
+            <!-- Contenedor para mensajes globales (toasts) -->
+            <div id="mensaje-global"></div>
+        </div>
+    </div>
+
+    <!-- Área de Impresión (oculta) -->
+    <div id="printable-factura" aria-hidden="true" style="display: none;"></div>
+    
+    <!-- MODALES -->
+    <!-- Modal Confirmación (Genérico) -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header bg-danger text-white"><h5 class="modal-title" id="confirmDeleteModalLabel"><i class="fas fa-exclamation-triangle me-2"></i> Confirmar Acción</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><p id="confirmDeleteMessage">¿Estás seguro?</p></div><div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button><button type="button" class="btn btn-danger btn-sm" id="confirmDeleteBtn"><i class="fas fa-check"></i> Confirmar</button></div></div></div></div>
+    
+    <!-- Modal Registrar Pago CXC -->
+    <div class="modal fade" id="registrarPagoModal" tabindex="-1" aria-labelledby="registrarPagoModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-success text-white"><h5 class="modal-title" id="registrarPagoModalLabel"><i class="fas fa-money-check-alt me-2"></i>Registrar Pago</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><form id="form-registrar-pago"><input type="hidden" id="pago-factura-id"><p><strong>Factura ID:</strong> <span id="pago-modal-factura-id-display"></span></p><p><strong>Cliente:</strong> <span id="pago-modal-cliente-nombre-display"></span></p><p><strong>Saldo Actual:</strong> <span id="pago-modal-saldo-actual-display" class="fw-bold"></span></p><div class="mb-3"><label for="pago-monto" class="form-label">Monto a Pagar: <span class="text-danger">*</span></label><input type="number" class="form-control" id="pago-monto" step="0.01" min="0.01" required></div><div class="mb-3"><label for="pago-fecha" class="form-label">Fecha de Pago: <span class="text-danger">*</span></label><input type="date" class="form-control" id="pago-fecha" required></div><div class="mb-3"><label for="pago-metodo" class="form-label">Método:</label><select class="form-select" id="pago-metodo"><option value="">Seleccione...</option><option value="Efectivo $">Efectivo $</option><option value="Efectivo Bs.">Efectivo Bs.</option><option value="Pago Movil">Pago Móvil</option><option value="Transferencia">Transferencia</option><option value="Zelle">Zelle</option><option value="Punto de Venta">Punto de Venta</option><option value="Otro">Otro</option></select></div><div class="mb-3"><label for="pago-referencia" class="form-label">Referencia:</label><input type="text" class="form-control" id="pago-referencia"></div><div class="mb-3"><label for="pago-observaciones" class="form-label">Observaciones:</label><textarea class="form-control" id="pago-observaciones" rows="2"></textarea></div></form><div id="mensaje-pago-modal" class="mt-2"></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button><button type="button" class="btn btn-success btn-sm" id="btn-confirmar-pago"><i class="fas fa-check"></i> Registrar Pago</button></div></div></div></div>
+    
+    <!-- Modal Historial Pagos Factura -->
+    <div class="modal fade" id="historialPagosModal" tabindex="-1" aria-labelledby="historialPagosModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="historialPagosModalLabel">Historial de Pagos - Factura ID: <span id="historial-pagos-factura-id-display"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><p><strong>Cliente:</strong> <span id="historial-pagos-cliente-nombre-display"></span></p><p><strong>Total Factura:</strong> <span id="historial-pagos-total-factura-display"></span> | <strong>Saldo Pendiente:</strong> <span id="historial-pagos-saldo-pendiente-display" class="fw-bold"></span></p><div id="historial-pagos-loading" class="text-center" style="display:none;"><div class="spinner-border spinner-border-sm" role="status"></div> Cargando pagos...</div><div class="table-responsive"><table class="table table-sm table-striped"><thead class="table-light"><tr><th>Fecha Pago</th><th class="num">Monto Pagado</th><th>Método</th><th>Referencia</th><th>Observaciones</th><th>Registrado por</th><th>Fecha Registro</th></tr></thead><tbody id="cuerpo-tabla-historial-pagos"></tbody></table></div><div id="mensaje-historial-pagos-modal" class="mt-2"></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button></div></div></div></div>
+    
+    <!-- Modal Motivo Anulación Factura -->
+    <div class="modal fade" id="motivoAnulacionModal" tabindex="-1" aria-labelledby="motivoAnulacionModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-warning text-dark"><h5 class="modal-title" id="motivoAnulacionModalLabel"><i class="fas fa-comment-slash me-2"></i>Anular Factura - ID: <span id="anular-factura-id-display"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><form id="form-motivo-anulacion"><input type="hidden" id="anular-factura-id-input"><div class="mb-3"><label for="motivo-anulacion-texto" class="form-label">Motivo de la Anulación: <span class="text-danger">*</span></label><textarea class="form-control" id="motivo-anulacion-texto" rows="3" required></textarea></div></form><div id="mensaje-motivo-anulacion-modal" class="mt-2"></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button><button type="button" class="btn btn-warning btn-sm" id="btn-confirmar-anulacion"><i class="fas fa-check"></i> Confirmar Anulación</button></div></div></div></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
